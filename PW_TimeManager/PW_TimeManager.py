@@ -89,16 +89,16 @@ class MyWindow(Window):
 
     def StopButton_Click(self, sender, e):
         now_time = str(datetime.datetime.now())
-        type = "start"
+        type = "stop"
         point = Point(type,now_time)
-        jsn_add(self.jsn,point)
+        self.jsn_add(self.jsn,point)
 
     def jsn_add(self, jsn,point):
-        json_add(self.jsn, point["date"], point["type"])
+        json_add(self.jsn, point.date, point.type)
         write_json_to_file(self.jsn)
         new_date = DateItem()
-        new_date.type = point['type']
-        new_date.date = point['date']
+        new_date.type = point.type
+        new_date.date = point.date
         self.data.Add(new_date)
 
     def MenuItem_Open_Click(self, sender, e):

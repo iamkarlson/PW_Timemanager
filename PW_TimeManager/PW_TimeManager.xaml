@@ -21,23 +21,23 @@
             <ItemsControl>Время</ItemsControl>
         </StackPanel>
         <TabControl VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch">
-            <TabItem Header="TabItem">
-                    <ListView x:Name="listView">
-                        <ListView.Resources>
-                            <DataTemplate x:Key="tpl_date">
-                                <TextBlock Text="{Binding Path=date}" TextTrimming="CharacterEllipsis" />
-                            </DataTemplate>
-                            <DataTemplate x:Key="tpl_type">
-                                <TextBlock Text="{Binding Path=type}" TextTrimming="CharacterEllipsis" />
-                            </DataTemplate>
-                        </ListView.Resources>
-                        <ListView.View>
-                            <GridView>
-                                <GridViewColumn Header="Show" CellTemplate="{StaticResource tpl_date}" />
-                                <GridViewColumn Header="Name" CellTemplate="{DynamicResource tpl_type}" />
-                            </GridView>
-                        </ListView.View>
-                    </ListView>
+            <TabItem x:Name="DatesTabItem" Header="TabItem">
+                <ListView x:Name="listView" Padding="2">
+                    <ListView.Resources>
+                        <DataTemplate x:Key="tpl_date">
+                            <TextBlock Text="{Binding Path=date}" TextTrimming="CharacterEllipsis" />
+                        </DataTemplate>
+                        <DataTemplate x:Key="tpl_type">
+                            <TextBlock Text="{Binding Path=type}" TextTrimming="CharacterEllipsis" />
+                        </DataTemplate>
+                    </ListView.Resources>
+                    <ListView.View>
+                        <GridView ScrollViewer.PanningMode="VerticalOnly">
+                            <GridViewColumn Header="Show" CellTemplate="{StaticResource tpl_date}" />
+                            <GridViewColumn Header="Name" CellTemplate="{DynamicResource tpl_type}" />
+                        </GridView>
+                    </ListView.View>
+                </ListView>
             </TabItem>
             <TabItem Header="TabItem">
                 <Grid Margin="15" x:Name="grid1">
@@ -60,5 +60,5 @@
         </TabControl>
 
     </StackPanel>
-    
+
 </Window> 
