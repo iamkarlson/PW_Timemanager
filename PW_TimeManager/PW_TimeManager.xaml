@@ -1,34 +1,41 @@
 ﻿<Window 
        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
-       Title="PW_TimeManager" Height="500" Width="800">
-    <StackPanel x:Name="RootStack" VerticalAlignment="Top">
-        <Menu x:Name="FileMenu" Height="17" >
+       xmlns:System="clr-namespace:System;assembly=mscorlib" x:Name="window" 
+       Title="PW_TimeManager" Height="500" Width="800" MinHeight="500">
+    <DockPanel x:Name="RootStack">
+        <Menu x:Name="FileMenu" Height="17" DockPanel.Dock="Top">
             <MenuItem Header="File">
-                <MenuItem Header="Open" Click="MenuItem_Open_Click"></MenuItem>
-                <MenuItem Header="Save"></MenuItem>
-                <MenuItem Header="Close"></MenuItem>
+                <MenuItem Header="Open" Click="MenuItem_Open_Click"/>
+                <MenuItem Header="Save"/>
+                <MenuItem Header="Close"/>
             </MenuItem>
-            <MenuItem Header="Edit"></MenuItem>
+            <MenuItem Header="Edit"/>
         </Menu>
-        <StackPanel HorizontalAlignment="Left" Orientation="Horizontal" Height="30" VerticalAlignment="Top">
+        <StackPanel DockPanel.Dock="Top" HorizontalAlignment="Left" Orientation="Horizontal" Height="30" VerticalAlignment="Top" >
             <Button Content="Start" Height="20" Width="50" Margin="5" Click="StartButton_Click" />
             <Button Content="Stop" Height="20" Width="50" Margin="5" Click="StopButton_Click"/>
         </StackPanel>
-        <StackPanel>
-            <ItemsControl>Время начала</ItemsControl>
-            <ItemsControl>Время окончания</ItemsControl>
-            <ItemsControl>Время</ItemsControl>
+        <StackPanel DockPanel.Dock="Top" Height="59.96">
+            <ItemsControl>
+                <System:String>Время начала</System:String>
+            </ItemsControl>
+            <ItemsControl>
+                <System:String>Время окончания</System:String>
+            </ItemsControl>
+            <ItemsControl>
+                <System:String>Время</System:String>
+            </ItemsControl>
         </StackPanel>
-        <TabControl VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch">
+        <TabControl DockPanel.Dock="Top" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch">
             <TabItem x:Name="DatesTabItem" Header="TabItem">
                 <ListView x:Name="listView" Padding="2">
                     <ListView.Resources>
                         <DataTemplate x:Key="tpl_date">
-                            <TextBlock Text="{Binding Path=date}" TextTrimming="CharacterEllipsis" />
+                            <TextBlock Text="{Binding date}" TextTrimming="CharacterEllipsis" />
                         </DataTemplate>
                         <DataTemplate x:Key="tpl_type">
-                            <TextBlock Text="{Binding Path=type}" TextTrimming="CharacterEllipsis" />
+                            <TextBlock Text="{Binding type}" TextTrimming="CharacterEllipsis" />
                         </DataTemplate>
                     </ListView.Resources>
                     <ListView.View>
@@ -40,7 +47,7 @@
                 </ListView>
             </TabItem>
             <TabItem Header="TabItem">
-                <Grid Margin="15" x:Name="grid1">
+                <Grid x:Name="grid1">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
@@ -58,7 +65,5 @@
                 </Grid>
             </TabItem>
         </TabControl>
-
-    </StackPanel>
-
+    </DockPanel>
 </Window> 

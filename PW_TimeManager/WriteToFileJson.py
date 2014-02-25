@@ -1,5 +1,6 @@
 import datetime
 import json
+import os
 
 class Point(object):
     def __init__(self,type,date):
@@ -10,13 +11,17 @@ def jdefault(o):
     return o.__dict__
 
 def json_load(path):
-    with open(path, 'r') as json_file:
-        try:
-            x = json_file.read()
-            jsn = json.loads(x)
-        except ValueError:
-            jsn={}
-            jsn['points']=[]#"""
+    if(os.path.isfile(path)!=True):
+        jsn={}
+        jsn['points']=[]
+    else:
+        with open(path, 'r') as json_file:
+            try:
+                x = json_file.read()
+                jsn = json.loads(x)
+            except ValueError:
+                jsn={}
+                jsn['points']=[]
     return jsn
 
 def json_add(jsn, datetime, type):
