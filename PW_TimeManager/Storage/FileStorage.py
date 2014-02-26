@@ -1,16 +1,12 @@
 import datetime
 import json
 import os
-
-class Point(object):
-    def __init__(self,type,date):
-        self.type=type
-        self.date=date
+from PointClass import *
 
 def jdefault(o):
     return o.__dict__
 
-def json_load(path):
+def data_load(path):
     if(os.path.isfile(path)!=True):
         jsn={}
         jsn['points']=[]
@@ -24,7 +20,7 @@ def json_load(path):
                 jsn['points']=[]
     return jsn
 
-def json_add(jsn, datetime, type):
+def data_add(jsn, datetime, type):
     point = Point(type,datetime)
     jsn['points'].append(point)
 
@@ -35,6 +31,6 @@ def write_json_to_file(jsn):
 if __name__ == '__main__':
     now = str(datetime.datetime.now())
     type = "stop"
-    jsn = json_load('d:\\dates.json')
-    json_add(jsn, now, type)
+    jsn = data_load('d:\\dates.json')
+    data_add(jsn, now, type)
     write_json_to_file(jsn)

@@ -32,10 +32,16 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Command.py" />
+    <Compile Include="dotNET_base\NotifyPropertyChangedBase.py" />
+    <Compile Include="dotNET_base\__init__.py" />
+    <Compile Include="PointClass.py" />
     <Compile Include="PW_TimeManager.py" />
     <Compile Include="pyevent.py" />
+    <Compile Include="Storage\SQLLiteModule.py" />
+    <Compile Include="Storage\__init__.py" />
+    <Compile Include="TrackedItemClass.py" />
     <Compile Include="ViewModelBase.py" />
-    <Compile Include="WriteToFileJson.py" />
+    <Compile Include="Storage\FileStorage.py" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="PW_TimeManager.xaml">
@@ -63,6 +69,10 @@
     <InterpreterReference Include="{80659ab7-4d53-4e0c-8588-a766116cbd46}\2.7" />
     <InterpreterReference Include="{9a7a9026-48c1-4688-9d5d-e5699d47d074}\3.3" />
     <InterpreterReference Include="{fcc291aa-427c-498c-a4d7-4502d6449b8c}\2.7" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="dotNET_base\" />
+    <Folder Include="Storage\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.Common.targets" />
 </Project>

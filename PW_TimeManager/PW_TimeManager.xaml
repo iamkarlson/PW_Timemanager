@@ -16,20 +16,29 @@
             <Button Content="Start" Height="20" Width="50" Margin="5" Click="StartButton_Click" />
             <Button Content="Stop" Height="20" Width="50" Margin="5" Click="StopButton_Click"/>
         </StackPanel>
-        <StackPanel DockPanel.Dock="Top" Height="59.96">
-            <ItemsControl>
-                <System:String>Время начала</System:String>
-            </ItemsControl>
-            <ItemsControl>
-                <System:String>Время окончания</System:String>
-            </ItemsControl>
-            <ItemsControl>
-                <System:String>Время</System:String>
-            </ItemsControl>
-        </StackPanel>
+        <Grid  DockPanel.Dock="Top">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*" />
+                <ColumnDefinition Width="8*" />
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Column="0" Grid.Row="0" Text="Время начала"/>
+            <TextBlock Grid.Column="1" Grid.Row="0" Text="dd.MM.yyyy"/>
+            <TextBlock Grid.Column="0" Grid.Row="1" Text="Время окончания"/>
+            <TextBlock Grid.Column="1" Grid.Row="1" Text="dd.MM.yyyy"/>
+            <TextBlock Grid.Column="0" Grid.Row="2" Text="Время за день"/>
+            <TextBlock Grid.Column="1" Grid.Row="2" Text="dd.MM.yyyy"/>
+        </Grid>
         <TabControl DockPanel.Dock="Top" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch">
             <TabItem x:Name="DatesTabItem" Header="TabItem">
-                <ListView x:Name="listView" Padding="2">
+                <!--<ListView Padding="2">
                     <ListView.Resources>
                         <DataTemplate x:Key="tpl_date">
                             <TextBlock Text="{Binding date}" TextTrimming="CharacterEllipsis" />
@@ -40,11 +49,17 @@
                     </ListView.Resources>
                     <ListView.View>
                         <GridView ScrollViewer.PanningMode="VerticalOnly">
-                            <GridViewColumn Header="Show" CellTemplate="{StaticResource tpl_date}" />
-                            <GridViewColumn Header="Name" CellTemplate="{DynamicResource tpl_type}" />
+                            <GridViewColumn Header="Date" CellTemplate="{StaticResource tpl_date}" />
+                            <GridViewColumn Header="Type" CellTemplate="{DynamicResource tpl_type}" />
                         </GridView>
                     </ListView.View>
-                </ListView>
+                </ListView>-->
+                <DataGrid x:Name="listView" >
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Binding="{Binding date, Mode=OneWay, StringFormat=\{0:G\}}" Header="Date" />
+                        <DataGridTextColumn Binding="{Binding type, Mode=OneWay}" Header="Type" />
+                    </DataGrid.Columns>
+                </DataGrid>
             </TabItem>
             <TabItem Header="TabItem">
                 <Grid x:Name="grid1">
