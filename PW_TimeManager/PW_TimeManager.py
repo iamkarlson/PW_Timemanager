@@ -24,8 +24,8 @@ def OpenDialogFile():
 def LoadFile():
         list = []
         f = open('d:\\test strings file.txt')
-        lines = f.readlines()
-        f.close()
+        #lines = f.readlines()
+        #f.close()
         pass
 
 class MyWindow(Window):
