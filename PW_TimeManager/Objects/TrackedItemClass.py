@@ -7,36 +7,42 @@ import json
 
 class TrackedItem(NotifyPropertyChangedBase):
     __metaclass__ = clrtype.ClrClass
-    """
-            use setter getter.
-            IronPython 2.6 or later.
-    """
+
     def __init__(self,type_track= None, start_date = None, end_date = None):
         super(TrackedItem, self).__init__()
         self.type_track=type_track
         self.start_date=start_date
+        self.end_date = end_date
 
     def _jsonSupport( *args ):
-        def default(self, trackedObject):
+        def default(self,trackedObject):
             jsn = {}
-            if(trackedObject.id != None):
-                jsn['id']= trackedObject.id
-            if(trackedObject.type_track != None):
-                jsn['type_track']= trackedObject.type_track
-            if(trackedObject.start_date != None):
-                jsn['start_date']= trackedObject.start_date
-            if(trackedObject.end_date != None):
-                jsn['end_date']= trackedObject.end_date 
+            try:
+                jsn['id'] = trackedObject._id
+            except:
+                jsn['id']= ""
+            try:
+                jsn['type_track'] = trackedObject._type_track
+            except:
+                jsn['type_track']= ""
+            try:
+                jsn['start_date'] = trackedObject._start_date
+            except:
+                jsn['start_date']= ""
+            try:
+                jsn['end_date'] = trackedObject._end_date
+            except:
+                jsn['end_date']= ""            
             return jsn
-
+        """
         def objectHook( obj ):
             if 'type' not in obj:
                 return obj
             if obj[ 'type' ] != 'TrackedItem':
                 return obj
-            return TrackedItem(obj.type_track, obj.start_date )
+            return TrackedItem(obj.type_track, obj.start_date, obj.end_date )
+        json._default_decoder = json.JSONDecoder( object_hook = objectHook )"""
         json.JSONEncoder.default = default
-        json._default_decoder = json.JSONDecoder( object_hook = objectHook )
     _jsonSupport()
 
     @property

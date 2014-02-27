@@ -38,7 +38,7 @@ class MyWindow(Window):
         self.listView.ItemsSource = self.data_worker.get_tracked_items()
         latest_element = self.data_worker.get_latest_element()
         if(latest_element != None ):
-            if(latest_element.type_track == "complete"):
+            if(latest_element.type_track != "complete"):
                 self._current_task = latest_element
         self.grid1.DataContext = self._current_task 
 
@@ -51,6 +51,7 @@ class MyWindow(Window):
         else:
             self._current_task = TrackedItem()
             self._current_task.start_date = str(datetime.datetime.now())
+            self._current_task.end_date = ""
             self._current_task.type_track = "in progress"
             new_task = self._current_task
             self.new_date_add(new_task)

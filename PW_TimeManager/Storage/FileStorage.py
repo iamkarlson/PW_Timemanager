@@ -20,6 +20,26 @@ class FileStorage(object):
     def __init__(self,path):
         self.path = path
 
+    def _parse_json_item(self,jsn):
+        trackedObject = TrackedItem()
+        try:
+            trackedObject.id = jsn['id']
+        except:
+            trackedObject.id = ""
+        try:
+            trackedObject.type_track = jsn['type_track']
+        except:
+            trackedObject.type_track = ""
+        try:
+            trackedObject.start_date = jsn['start_date']
+        except:
+            trackedObject.start_date = ""
+        try:
+            trackedObject.end_date  = jsn['end_date']
+        except:
+            trackedObject.end_date = ""
+        return trackedObject
+
     def data_load(self):
         if(os.path.isfile(self.path)!=True):
             jsn=[]
@@ -32,8 +52,8 @@ class FileStorage(object):
                     jsn=[]
         self._tracked_items = ObservableCollection[TrackedItem]()
         for index,point in enumerate(jsn):
-            new_item = TrackedItem(point['type_track'],point['start_date'],point['end_date'])
-            new_item.id=index
+            new_item = self._parse_json_item(point)
+            new_item.id=index+1
             self._tracked_items.Add(new_item)
 
     def get_tracked_items(self):
