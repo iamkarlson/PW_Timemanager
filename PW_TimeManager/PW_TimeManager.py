@@ -35,8 +35,6 @@ class MyWindow(Window):
         self.data_worker = FileStorage('d:\\dates.json')
         self.data_worker.data_load()
 
-        #self.data = ObservableCollection[TrackedItem]()
-
         self.listView.ItemsSource = self.data_worker.get_tracked_items()
 
     def __getattr__(self, item):
@@ -56,12 +54,6 @@ class MyWindow(Window):
 
     def new_date_add(self, point):
         self.data_worker.data_add(point)
-        #self.RaisePropertyChanged("data")
-        #self.data = self.data_worker.get_tracked_items()
-        """new_date = TrackedItem()
-        new_date.type_track = point.type_track
-        new_date.date = point.date
-        self.data.Add(new_date)"""
 
     def MenuItem_Open_Click(self, sender, e):
         OpenDialogFile()

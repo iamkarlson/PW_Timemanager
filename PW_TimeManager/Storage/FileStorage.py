@@ -15,8 +15,6 @@ import os
 class FileStorage(object):
     def __init__(self,path):
         self.path = path
-        #jsn=[]
-        #self._tracked_items = jsn
 
     def data_load(self):
         if(os.path.isfile(self.path)!=True):
@@ -54,4 +52,4 @@ class FileStorage(object):
             temp_array = []
             for point in jsn:
                 temp_array.Add(point)
-            json_file.write(json.dumps(temp_array))#, default=jdefault))
+            json_file.write(json.dumps(temp_array))
