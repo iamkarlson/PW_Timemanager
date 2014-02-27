@@ -38,26 +38,10 @@
         </Grid>
         <TabControl DockPanel.Dock="Top" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch">
             <TabItem x:Name="DatesTabItem" Header="TabItem">
-                <!--<ListView Padding="2">
-                    <ListView.Resources>
-                        <DataTemplate x:Key="tpl_date">
-                            <TextBlock Text="{Binding date}" TextTrimming="CharacterEllipsis" />
-                        </DataTemplate>
-                        <DataTemplate x:Key="tpl_type">
-                            <TextBlock Text="{Binding type}" TextTrimming="CharacterEllipsis" />
-                        </DataTemplate>
-                    </ListView.Resources>
-                    <ListView.View>
-                        <GridView ScrollViewer.PanningMode="VerticalOnly">
-                            <GridViewColumn Header="Date" CellTemplate="{StaticResource tpl_date}" />
-                            <GridViewColumn Header="Type" CellTemplate="{DynamicResource tpl_type}" />
-                        </GridView>
-                    </ListView.View>
-                </ListView>-->
                 <DataGrid x:Name="listView" >
                     <DataGrid.Columns>
-                        <DataGridTextColumn Binding="{Binding date, Mode=OneWay, StringFormat=\{0:G\}}" Header="Date" />
-                        <DataGridTextColumn Binding="{Binding type, Mode=OneWay}" Header="Type" />
+                        <DataGridTextColumn Binding="{Binding date, Mode=OneWay, StringFormat=\{0:G\}}" Header="Date" Width="2*" />
+                        <DataGridTextColumn Binding="{Binding type_track, Mode=OneWay}" Header="Type" Width="3*" />
                     </DataGrid.Columns>
                 </DataGrid>
             </TabItem>

@@ -1,4 +1,4 @@
-from pyevent import *
+import Helpers.pyevent as pyevent
 
 
 from System.Collections.ObjectModel import *
@@ -6,13 +6,11 @@ from System.ComponentModel import *
 
 class NotifyPropertyChangedBase(INotifyPropertyChanged):
         """
- 
-http://sdlsdk.codeplex.com/Thread/View.aspx?ThreadId=30322
- 
+            http://sdlsdk.codeplex.com/Thread/View.aspx?ThreadId=30322
         """
         PropertyChanged = None
         def __init__(self):
-                (self.PropertyChanged, self._propertyChangedCaller) = make_event()
+                self.PropertyChanged, self._propertyChangedCaller = pyevent.make_event()
  
         def add_PropertyChanged(self, value):
                 self.PropertyChanged += value

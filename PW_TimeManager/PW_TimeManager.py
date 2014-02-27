@@ -1,6 +1,7 @@
 import wpf
 import datetime
-import pyevent
+
+import Helpers.pyevent
 
 from System.Windows import Application, Window
 
@@ -10,12 +11,12 @@ from System.ComponentModel import *
 
 
 from ViewModelBase import ViewModelBase
-from Command import Command
+from Helpers.Command import Command
 
 from Storage.FileStorage import *
 
-from TrackedItemClass import *
-from PointClass import *
+
+from Objects.TrackedItemClass import *
 
 def OpenDialogFile():
         LoadFile()
@@ -27,61 +28,56 @@ def LoadFile():
         f.close()
         pass
 
-
-
-
-
 class MyWindow(Window):
-        def __init__(self):
-                wpf.LoadComponent(self, 'PW_TimeManager.xaml')
-                self.data = ObservableCollection[TrackedItem]()
-                self.listView.ItemsSource = self.data
-                self.jsn = data_load('d:\\dates.json')
-                for point in self.jsn['points']:
-                        new_date = TrackedItem()
-                        new_date.type = point['type']
-                        new_date.date = point['date']
-                        self.data.Add(new_date)
+    def __init__(self):
+        wpf.LoadComponent(self, 'PW_TimeManager.xaml')
+        
+        self.data_worker = FileStorage('d:\\dates.json')
+        self.data_worker.data_load()
 
-        def __getattr__(self, item):
-                #Maps values to attributes.Only called if there *isn't* an attribute with this name
-                return self.Root.FindName(item)
-        def StartButton_Click(self, sender, e):
-                now_time = str(datetime.datetime.now())
-                type = "start"
-                point = Point(type,now_time)
-                self.new_date_add(self.jsn,point)
+        #self.data = ObservableCollection[TrackedItem]()
 
-        def StopButton_Click(self, sender, e):
-                now_time = str(datetime.datetime.now())
-                type = "stop"
-                point = Point(type,now_time)
-                self.new_date_add(self.jsn,point)
+        self.listView.ItemsSource = self.data_worker.get_tracked_items()
 
-        def new_date_add(self, jsn,point):
-                data_add(self.jsn, point.date, point.type)
-                write_json_to_file(self.jsn)
-                new_date = TrackedItem()
-                new_date.type = point.type
-                new_date.date = point.date
-                self.data.Add(new_date)
+    def __getattr__(self, item):
+        #Maps values to attributes.Only called if there *isn't* an attribute with this name
+        return self.Root.FindName(item)
+    def StartButton_Click(self, sender, e):
+        now_time = str(datetime.datetime.now())
+        type_track = "start"
+        point = TrackedItem(type_track,now_time)
+        self.new_date_add(point)
 
-        def MenuItem_Open_Click(self, sender, e):
-                OpenDialogFile()
+    def StopButton_Click(self, sender, e):
+        now_time = str(datetime.datetime.now())
+        type_track = "stop"
+        point = TrackedItem(type_track,now_time)
+        self.new_date_add(point)
+
+    def new_date_add(self, point):
+        self.data_worker.data_add(point)
+        #self.RaisePropertyChanged("data")
+        #self.data = self.data_worker.get_tracked_items()
+        """new_date = TrackedItem()
+        new_date.type_track = point.type_track
+        new_date.date = point.date
+        self.data.Add(new_date)"""
+
+    def MenuItem_Open_Click(self, sender, e):
+        OpenDialogFile()
 
 
 class ViewModel(ViewModelBase):
-        def __init__(self):
-                ViewModelBase.__init__(self)
-                self.FirstName = "Joe"
-                self.Surname = "Smith"
-                self.ChangeCommand = Command(self.change)
-        def change(self):
-                self.FirstName = "Dave"
-                self.Surname = "Brown"
-                self.RaisePropertyChanged("FirstName")
-                self.RaisePropertyChanged("Surname")
-
+    def __init__(self):
+        ViewModelBase.__init__(self)
+        self.FirstName = "Joe"
+        self.Surname = "Smith"
+        self.ChangeCommand = Command(self.change)
+    def change(self):
+        self.FirstName = "Dave"
+        self.Surname = "Brown"
+        self.RaisePropertyChanged("FirstName")
+        self.RaisePropertyChanged("Surname")
 
 if __name__ == '__main__':
         app = Application()
