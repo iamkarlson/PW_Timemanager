@@ -40,7 +40,8 @@
             <TabItem x:Name="DatesTabItem" Header="TabItem">
                 <DataGrid x:Name="listView" >
                     <DataGrid.Columns>
-                        <DataGridTextColumn Binding="{Binding date, Mode=OneWay, StringFormat=\{0:G\}}" Header="Date" Width="2*" />
+                        <DataGridTextColumn Binding="{Binding start_date, Mode=OneWay, StringFormat=\{0:G\}}" Header="Start date" Width="2*" />
+                        <DataGridTextColumn Binding="{Binding end_date, Mode=OneWay, StringFormat=\{0:G\}}" Header="End date" Width="2*" />
                         <DataGridTextColumn Binding="{Binding type_track, Mode=OneWay}" Header="Type" Width="3*" />
                     </DataGrid.Columns>
                 </DataGrid>
@@ -57,9 +58,9 @@
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
                     <Label Grid.Row="0" Grid.Column="0" FontSize="24" Content="Start time:" />
-                    <Label Grid.Row="0" Grid.Column="1" FontSize="24" Content="{Binding date}" />
+                    <Label Grid.Row="0" Grid.Column="1" FontSize="24" Content="{Binding start_date}" />
                     <Label Grid.Row="1" Grid.Column="0" FontSize="24" Content="End time:" />
-                    <Label Grid.Row="1" Grid.Column="1" FontSize="24" Content="{Binding type_track}" />
+                    <Label Grid.Row="1" Grid.Column="1" FontSize="24" Content="{Binding end_date}" />
                     <Button Grid.Row="2" FontSize="24" Content="Change" Command="{Binding ChangeCommand}" />
                 </Grid>
             </TabItem>

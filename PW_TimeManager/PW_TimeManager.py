@@ -34,27 +34,39 @@ class MyWindow(Window):
         
         self.data_worker = FileStorage('d:\\dates.json')
         self.data_worker.data_load()
-
+        self._current_task = None
         self.listView.ItemsSource = self.data_worker.get_tracked_items()
-        self.grid1.DataContext = self.data_worker.get_latest_element()
+        latest_element = self.data_worker.get_latest_element()
+        if(latest_element != None ):
+            if(latest_element.type_track == "complete"):
+                self._current_task = latest_element
+        self.grid1.DataContext = self._current_task 
 
     def __getattr__(self, item):
         #Maps values to attributes.Only called if there *isn't* an attribute with this name
         return self.Root.FindName(item)
     def StartButton_Click(self, sender, e):
-        now_time = str(datetime.datetime.now())
-        type_track = "start"
-        point = TrackedItem(type_track,now_time)
-        self.new_date_add(point)
+        if(self._current_task != None):
+            pass
+        else:
+            self._current_task = TrackedItem()
+            self._current_task.start_date = str(datetime.datetime.now())
+            self._current_task.type_track = "in progress"
+            new_task = self._current_task
+            self.new_date_add(new_task)
 
     def StopButton_Click(self, sender, e):
-        now_time = str(datetime.datetime.now())
-        type_track = "stop"
-        point = TrackedItem(type_track,now_time)
-        self.new_date_add(point)
+        if(self._current_task == None):
+            pass
+        else:
+            self._current_task.end_date = str(datetime.datetime.now())
+            self._current_task.type_track = "complete"
+            task = self._current_task
+            self.new_date_add(task)
+            self._current_task = None
 
     def new_date_add(self, point):
-        self.data_worker.data_add(point)
+        self.data_worker.data_update(point)
         self.grid1.DataContext = self.data_worker.get_latest_element()
 
     def MenuItem_Open_Click(self, sender, e):
@@ -63,5 +75,4 @@ class MyWindow(Window):
 if __name__ == '__main__':
         app = Application()
         window = MyWindow()
-        #window.grid1.DataContext = ViewModel()
         app.Run(window)
