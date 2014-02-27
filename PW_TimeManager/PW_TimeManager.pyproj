@@ -36,6 +36,7 @@
     <Compile Include="Helpers\Command.py" />
     <Compile Include="dotNET_base\NotifyPropertyChangedBase.py" />
     <Compile Include="Helpers\__init__.py" />
+    <Compile Include="Objects\TrackedItemClass.py" />
     <Compile Include="Objects\__init__.py" />
     <Compile Include="PW_TimeManager.py" />
     <Compile Include="Helpers\pyevent.py" />
