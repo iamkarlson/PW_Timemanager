@@ -41,7 +41,6 @@
     <Compile Include="PW_TimeManager.py" />
     <Compile Include="Helpers\pyevent.py" />
     <Compile Include="Storage\SQLLiteModule.py" />
-    <Compile Include="TrackedItemClass.py" />
     <Compile Include="Storage\__init__.py" />
     <Compile Include="ViewModelBase.py" />
     <Compile Include="Storage\FileStorage.py" />
