@@ -4,6 +4,10 @@ sys.path.append("Objects")
 import clr
 import Helpers.clrtype as clrtype
 
+clr.AddReference("System.Core")
+import System
+clr.ImportExtensions(System.Linq)
+
 from System.Collections.ObjectModel import *
 
 from Objects.TrackedItemClass import *
@@ -36,6 +40,9 @@ class FileStorage(object):
             return self._tracked_items
         except ValueError:
             return []
+
+    def get_latest_element(self):
+        return list(self._tracked_items)[-1]
 
     @property
     @clrtype.accepts()

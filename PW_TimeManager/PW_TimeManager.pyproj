@@ -42,7 +42,6 @@
     <Compile Include="Helpers\pyevent.py" />
     <Compile Include="Storage\SQLLiteModule.py" />
     <Compile Include="Storage\__init__.py" />
-    <Compile Include="ViewModelBase.py" />
     <Compile Include="Storage\FileStorage.py" />
   </ItemGroup>
   <ItemGroup>

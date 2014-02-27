@@ -10,7 +10,7 @@ from System.Collections.ObjectModel import *
 from System.ComponentModel import *
 
 
-from ViewModelBase import ViewModelBase
+#from ViewModelBase import ViewModelBase
 from Helpers.Command import Command
 
 from Storage.FileStorage import *
@@ -36,6 +36,7 @@ class MyWindow(Window):
         self.data_worker.data_load()
 
         self.listView.ItemsSource = self.data_worker.get_tracked_items()
+        self.grid1.DataContext = self.data_worker.get_latest_element()
 
     def __getattr__(self, item):
         #Maps values to attributes.Only called if there *isn't* an attribute with this name
@@ -54,25 +55,13 @@ class MyWindow(Window):
 
     def new_date_add(self, point):
         self.data_worker.data_add(point)
+        self.grid1.DataContext = self.data_worker.get_latest_element()
 
     def MenuItem_Open_Click(self, sender, e):
         OpenDialogFile()
 
-
-class ViewModel(ViewModelBase):
-    def __init__(self):
-        ViewModelBase.__init__(self)
-        self.FirstName = "Joe"
-        self.Surname = "Smith"
-        self.ChangeCommand = Command(self.change)
-    def change(self):
-        self.FirstName = "Dave"
-        self.Surname = "Brown"
-        self.RaisePropertyChanged("FirstName")
-        self.RaisePropertyChanged("Surname")
-
 if __name__ == '__main__':
         app = Application()
         window = MyWindow()
-        window.grid1.DataContext = ViewModel()
+        #window.grid1.DataContext = ViewModel()
         app.Run(window)

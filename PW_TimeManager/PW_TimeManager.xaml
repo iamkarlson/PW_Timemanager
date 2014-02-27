@@ -56,10 +56,10 @@
                         <ColumnDefinition Width="Auto" />
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
-                    <Label Grid.Row="0" Grid.Column="0" FontSize="24" Content="First Name:" />
-                    <Label Grid.Row="0" Grid.Column="1" FontSize="24" Content="{Binding FirstName}" />
-                    <Label Grid.Row="1" Grid.Column="0" FontSize="24" Content="Surname:" />
-                    <Label Grid.Row="1" Grid.Column="1" FontSize="24" Content="{Binding Surname}" />
+                    <Label Grid.Row="0" Grid.Column="0" FontSize="24" Content="Start time:" />
+                    <Label Grid.Row="0" Grid.Column="1" FontSize="24" Content="{Binding date}" />
+                    <Label Grid.Row="1" Grid.Column="0" FontSize="24" Content="End time:" />
+                    <Label Grid.Row="1" Grid.Column="1" FontSize="24" Content="{Binding type_track}" />
                     <Button Grid.Row="2" FontSize="24" Content="Change" Command="{Binding ChangeCommand}" />
                 </Grid>
             </TabItem>
