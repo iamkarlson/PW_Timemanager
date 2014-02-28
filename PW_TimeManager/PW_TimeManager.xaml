@@ -37,17 +37,21 @@
             <TextBlock Grid.Column="1" Grid.Row="2" Text="dd.MM.yyyy"/>
         </Grid>
         <TabControl DockPanel.Dock="Top" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch">
-            <TabItem x:Name="DatesTabItem" Header="TabItem">
-                <DataGrid x:Name="listView" >
+            <TabItem x:Name="DatesTabItem" Header="TabItem" >
+                <DataGrid x:Name="listView">
+                    <DataGrid.Triggers>
+                        <EventTrigger />
+                    </DataGrid.Triggers>
                     <DataGrid.Columns>
-                        <DataGridTextColumn Binding="{Binding start_date, Mode=OneWay, StringFormat=\{0:G\}}" Header="Start date" Width="2*" />
-                        <DataGridTextColumn Binding="{Binding end_date, Mode=OneWay, StringFormat=\{0:G\}}" Header="End date" Width="2*" />
-                        <DataGridTextColumn Binding="{Binding type_track, Mode=OneWay}" Header="Type" Width="3*" />
+                        <DataGridTextColumn Binding="{Binding id, Mode=OneWay}" Visibility="Hidden"/>
+                        <DataGridTextColumn Binding="{Binding date_start, Mode=OneWay, BindsDirectlyToSource=True}"  Header="Start date" Width="2*" />
+                        <DataGridTextColumn Binding="{Binding date_end, Mode=OneWay, BindsDirectlyToSource=True}" Header="End date" Width="2*" />
+                        <DataGridTextColumn Binding="{Binding type_track, BindsDirectlyToSource=True , Mode=OneWay}" Header="Type" Width="3*" />
                     </DataGrid.Columns>
                 </DataGrid>
             </TabItem>
             <TabItem Header="TabItem">
-                <Grid x:Name="grid1">
+                <Grid x:Name="grid1" DataContext="{Binding current_task}">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
@@ -58,9 +62,9 @@
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
                     <Label Grid.Row="0" Grid.Column="0" FontSize="24" Content="Start time:" />
-                    <Label Grid.Row="0" Grid.Column="1" FontSize="24" Content="{Binding start_date}" />
+                    <Label Grid.Row="0" Grid.Column="1" FontSize="24" Content="{Binding date_start}" />
                     <Label Grid.Row="1" Grid.Column="0" FontSize="24" Content="End time:" />
-                    <Label Grid.Row="1" Grid.Column="1" FontSize="24" Content="{Binding end_date}" />
+                    <Label Grid.Row="1" Grid.Column="1" FontSize="24" Content="{Binding date_end}" />
                     <Button Grid.Row="2" FontSize="24" Content="Change" Command="{Binding ChangeCommand}" />
                 </Grid>
             </TabItem>

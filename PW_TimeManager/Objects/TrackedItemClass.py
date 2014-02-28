@@ -8,31 +8,32 @@ import json
 class TrackedItem(NotifyPropertyChangedBase):
     __metaclass__ = clrtype.ClrClass
 
-    def __init__(self,type_track= None, start_date = None, end_date = None):
+    def __init__(self,type_track= None, date_start = None, date_end = None):
         super(TrackedItem, self).__init__()
         self.type_track=type_track
-        self.start_date=start_date
-        self.end_date = end_date
+        self.date_start=date_start
+        self.date_end = date_end
 
     def _jsonSupport( *args ):
         def default(self,trackedObject):
+
             jsn = {}
-            try:
+            if trackedObject._id:
                 jsn['id'] = trackedObject._id
-            except:
+            else:
                 jsn['id']= ""
-            try:
+            if trackedObject._type_track:
                 jsn['type_track'] = trackedObject._type_track
-            except:
+            else:
                 jsn['type_track']= ""
-            try:
-                jsn['start_date'] = trackedObject._start_date
-            except:
-                jsn['start_date']= ""
-            try:
-                jsn['end_date'] = trackedObject._end_date
-            except:
-                jsn['end_date']= ""            
+            if trackedObject._date_start:
+                jsn['date_start'] = trackedObject._date_start
+            else:
+                jsn['date_start']= ""
+            if trackedObject._date_end:
+                jsn['date_end'] = trackedObject._date_end
+            else:
+                jsn['date_end']= ""
             return jsn
         """
         def objectHook( obj ):
@@ -40,7 +41,7 @@ class TrackedItem(NotifyPropertyChangedBase):
                 return obj
             if obj[ 'type' ] != 'TrackedItem':
                 return obj
-            return TrackedItem(obj.type_track, obj.start_date, obj.end_date )
+            return TrackedItem(obj.type_track, obj.date_start, obj.date_end )
         json._default_decoder = json.JSONDecoder( object_hook = objectHook )"""
         json.JSONEncoder.default = default
     _jsonSupport()
@@ -64,19 +65,19 @@ class TrackedItem(NotifyPropertyChangedBase):
         self.OnPropertyChanged("type_track")
 
     @property
-    def start_date(self):
-        return self._start_date
+    def date_start(self):
+        return self._date_start
  
-    @start_date.setter
-    def start_date(self, value):
-        self._start_date = value
-        self.OnPropertyChanged("start_date")
+    @date_start.setter
+    def date_start(self, value):
+        self._date_start = value
+        self.OnPropertyChanged("date_start")
 
     @property
-    def end_date(self):
-        return self._end_date
+    def date_end(self):
+        return self._date_end
  
-    @start_date.setter
-    def end_date(self, value):
-        self._end_date = value
-        self.OnPropertyChanged("end_date")
+    @date_end.setter
+    def date_end(self, val):
+        self._date_end = val
+        self.OnPropertyChanged("date_end")

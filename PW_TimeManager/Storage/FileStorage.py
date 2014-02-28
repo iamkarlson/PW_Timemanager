@@ -32,13 +32,13 @@ class FileStorage(object):
         except:
             trackedObject.type_track = ""
         try:
-            trackedObject.start_date = jsn['start_date']
+            trackedObject.date_start = jsn['date_start']
         except:
-            trackedObject.start_date = ""
+            trackedObject.date_start = ""
         try:
-            trackedObject.end_date  = jsn['end_date']
+            trackedObject.date_end  = jsn['date_end']
         except:
-            trackedObject.end_date = ""
+            trackedObject.date_end = ""
         return trackedObject
 
     def data_load(self):
@@ -81,9 +81,7 @@ class FileStorage(object):
     def data_update(self,point):
         try:
             ind = self._find_index(list(self._tracked_items), point)
-            self._tracked_items[ind].start_date = point.start_date
-            self._tracked_items[ind].end_date = point.end_date 
-            self._tracked_items[ind].type_track = point.type_track 
+            self._tracked_items[ind]= point
         except ValueError:
             last_point =self.get_latest_element()
             if(last_point != None):
