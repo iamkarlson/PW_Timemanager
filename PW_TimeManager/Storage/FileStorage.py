@@ -19,6 +19,7 @@ import os
 class FileStorage(object):
     def __init__(self,path):
         self.path = path
+        self.version = "1.0"
 
     def _parse_json_item(self,jsn):
         trackedObject = TrackedItem()
@@ -51,7 +52,12 @@ class FileStorage(object):
                 except ValueError:
                     jsn=[]
         self._tracked_items = ObservableCollection[TrackedItem]()
-        for index,point in enumerate(jsn):
+        try:
+            jsn["version"]
+            points = jsn["points"]
+        except:
+            points = []
+        for index,point in enumerate(points):
             new_item = self._parse_json_item(point)
             new_item.id=index+1
             self._tracked_items.Add(new_item)
@@ -85,7 +91,10 @@ class FileStorage(object):
             else:
                 point.id=1
             self._tracked_items.Add(point)
-        self.write_json_to_file(self.tracked_items)
+        data_to_write = {}
+        data_to_write['version'] = self.version
+        data_to_write['points'] = list(self.tracked_items)
+        self.write_json_to_file(data_to_write)
 
     def _find_index (self, item_list, target):
         try:
@@ -99,4 +108,4 @@ class FileStorage(object):
 
     def write_json_to_file(self,jsn):
         with open('d:\\dates.json', 'w+') as json_file:
-            json_file.write(json.dumps(list(jsn)))
+            json_file.write(json.dumps(jsn))
