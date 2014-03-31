@@ -42,7 +42,7 @@ class FileStorage(object):
         return trackedObject
 
     def data_load(self):
-        if(os.path.isfile(self.path)!=True):
+        if not os.path.isfile(self.path):
             jsn=[]
         else:
             with open(self.path, 'r') as json_file:

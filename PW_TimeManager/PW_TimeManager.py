@@ -21,19 +21,21 @@ from Storage.FileStorage import *
 from Objects.TrackedItemClass import *
 
 def OpenDialogFile():
-        LoadFile()
-        pass
+    LoadFile()
+    pass
 def LoadFile():
-        list = []
-        f = open('d:\\test strings file.txt')
-        #lines = f.readlines()
-        #f.close()
-        pass
+    list = []
+    f = open('d:\\test strings file.txt')
+    #lines = f.readlines()
+    #f.close()
+    pass
 
 class MyWindow(Window):
     def __init__(self):
         wpf.LoadComponent(self, 'PW_TimeManager.xaml')
         
+        self.Edit_Click_Command = Command(self.Edit_Click)
+
         self.data_worker = FileStorage('d:\\dates.json')
         self.data_worker.data_load()
         self._current_task = None
@@ -44,12 +46,12 @@ class MyWindow(Window):
 
         self.listView.ItemsSource = self.data_worker.get_tracked_items()
         self.grid1.DataContext = self._current_task 
-
+    
     def __getattr__(self, item):
         #Maps values to attributes.Only called if there *isn't* an attribute with this name
         return self.Root.FindName(item)
     def StartButton_Click(self, sender, e):
-        if(self._current_task != None):
+        if self._current_task:
             pass
         else:
             self._current_task = TrackedItem()
@@ -59,7 +61,7 @@ class MyWindow(Window):
             self.new_date_add(new_task)
 
     def StopButton_Click(self, sender, e):
-        if(self._current_task == None):
+        if not self._current_task:
             pass
         else:
             self._current_task.date_end = str(datetime.datetime.now())
@@ -74,6 +76,16 @@ class MyWindow(Window):
 
     def MenuItem_Open_Click(self, sender, e):
         OpenDialogFile()
+
+    def Edit_Click(self):
+        pass
+
+    def Exit_Click(self, sender, e):
+        app.Exit
+        app.Shutdown()
+
+    def MenuItem_Click(self, sender, e):
+        pass
 
 if __name__ == '__main__':
         app = Application()

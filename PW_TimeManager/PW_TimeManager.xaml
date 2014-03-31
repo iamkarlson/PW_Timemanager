@@ -8,7 +8,7 @@
             <MenuItem Header="File">
                 <MenuItem Header="Open" Click="MenuItem_Open_Click"/>
                 <MenuItem Header="Save"/>
-                <MenuItem Header="Close"/>
+                <MenuItem Header="Close" Click="Exit_Click"/>
             </MenuItem>
             <MenuItem Header="Edit"/>
         </Menu>
@@ -38,15 +38,19 @@
         </Grid>
         <TabControl DockPanel.Dock="Top" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch">
             <TabItem x:Name="DatesTabItem" Header="TabItem" >
-                <DataGrid x:Name="listView">
-                    <DataGrid.Triggers>
-                        <EventTrigger />
-                    </DataGrid.Triggers>
+                <DataGrid x:Name="listView" CanUserAddRows="False">
                     <DataGrid.Columns>
-                        <DataGridTextColumn Binding="{Binding id, Mode=OneWay}" Visibility="Hidden"/>
                         <DataGridTextColumn Binding="{Binding date_start, Mode=OneWay, BindsDirectlyToSource=True}"  Header="Start date" Width="2*" />
                         <DataGridTextColumn Binding="{Binding date_end, Mode=OneWay, BindsDirectlyToSource=True}" Header="End date" Width="2*" />
                         <DataGridTextColumn Binding="{Binding type_track, BindsDirectlyToSource=True , Mode=OneWay}" Header="Type" Width="3*" />
+                        <DataGridTemplateColumn Width="1*" Header="Action">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <!--Click="Button_Click"-->
+                                    <Button Content="Edit" Command="{Binding Edit_Click_Command}" CommandParameter="{Binding id, Mode=OneWay}"></Button>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
                     </DataGrid.Columns>
                 </DataGrid>
             </TabItem>
