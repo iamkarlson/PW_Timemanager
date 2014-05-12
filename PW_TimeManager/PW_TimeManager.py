@@ -46,10 +46,10 @@ class MyWindow(Window):
 
         self.listView.ItemsSource = self.data_worker.get_tracked_items()
         self.grid1.DataContext = self._current_task 
-    
     def __getattr__(self, item):
         #Maps values to attributes.Only called if there *isn't* an attribute with this name
         return self.Root.FindName(item)
+
     def StartButton_Click(self, sender, e):
         if self._current_task:
             pass
@@ -69,6 +69,7 @@ class MyWindow(Window):
             task = self._current_task
             self.new_date_add(task)
             self._current_task = None
+
     def new_date_add(self, point):
         self.data_worker.data_update(point)
         self.listView.Items.Refresh()
@@ -77,8 +78,9 @@ class MyWindow(Window):
     def MenuItem_Open_Click(self, sender, e):
         OpenDialogFile()
 
-    def Edit_Click(self):
-        pass
+    def Edit_Click(self, id):
+        task = self.data_worker.get_tracked_item_by_id(id)
+        self.grid1.DataContext = task
 
     def Exit_Click(self, sender, e):
         app.Exit

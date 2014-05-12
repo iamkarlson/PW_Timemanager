@@ -5,7 +5,7 @@ class Command(ICommand):
         self.execute = execute
      
     def Execute(self, parameter):
-        self.execute()
+        self.execute(parameter)
          
     def add_CanExecuteChanged(self, handler):
         pass

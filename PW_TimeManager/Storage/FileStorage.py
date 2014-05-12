@@ -72,6 +72,9 @@ class FileStorage(object):
         if(len(self._tracked_items)>0 ):
             return list(self._tracked_items)[-1]
         return None
+
+    def get_tracked_item_by_id(self, id):
+        pass
     @property
     @clrtype.accepts()
     @clrtype.returns(ObservableCollection[TrackedItem])
