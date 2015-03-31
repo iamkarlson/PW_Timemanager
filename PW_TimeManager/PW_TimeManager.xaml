@@ -26,15 +26,15 @@
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="2*" />
-                <ColumnDefinition Width="8*" />
+                <ColumnDefinition Width="3*" />
+                <ColumnDefinition Width="11*" />
             </Grid.ColumnDefinitions>
-            <TextBlock Grid.Column="0" Grid.Row="0" Text="Время начала"/>
-            <TextBlock Grid.Column="1" Grid.Row="0" Text="dd.MM.yyyy"/>
-            <TextBlock Grid.Column="0" Grid.Row="1" Text="Время окончания"/>
-            <TextBlock Grid.Column="1" Grid.Row="1" Text="dd.MM.yyyy"/>
-            <TextBlock Grid.Column="0" Grid.Row="2" Text="Время за день"/>
-            <TextBlock Grid.Column="1" Grid.Row="2" Text="dd.MM.yyyy"/>
+            <TextBlock Grid.Column="0" Grid.Row="0" Text="Текущая задача началась:"/>
+            <TextBlock x:Name="CurrentTaskStart"  Grid.Column="1" Grid.Row="0"/>
+            <TextBlock Grid.Column="0" Grid.Row="1" Text="Текущая задача закочнилась:"/>
+            <TextBlock x:Name="CurrentTaskEnd" Grid.Column="1" Grid.Row="1"/>
+            <TextBlock Grid.Column="0" Grid.Row="2" Text="Время за день:"/>
+            <TextBlock x:Name="DayWork" Grid.Column="1" Grid.Row="2"/>
         </Grid>
         <TabControl DockPanel.Dock="Top" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch">
             <TabItem x:Name="DatesTabItem" Header="TabItem" >

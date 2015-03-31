@@ -1,6 +1,8 @@
 import wpf
 import datetime
 
+import time
+
 import Helpers
 
 import Helpers.pyevent
@@ -70,10 +72,18 @@ class MyWindow(Window):
             self.new_date_add(task)
             self._current_task = None
 
-    def new_date_add(self, point):
-        self.data_worker.data_update(point)
+    def bind_values(self):
         self.listView.Items.Refresh()
         self.grid1.DataContext = self.data_worker.get_latest_element()
+
+    def new_date_add(self, point):
+        self.data_worker.data_update(point)
+        self.bind_values()
+        element = self.data_worker.get_latest_element()
+        #date = datetime.datetime.strptime(element.date_start, "%Y-%m-%d %H:%M:%S.%f")
+        self.CurrentTaskStart.Text = element.date_start
+        self.CurrentTaskEnd.Text = element.date_end
+
 
     def MenuItem_Open_Click(self, sender, e):
         OpenDialogFile()
